@@ -1,0 +1,41 @@
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger-grpc
+    ports:
+      - "16686:16686" # Jaeger UI
+      - "4318:4318" # OTLP HTTP ingest (v1/traces)
+    environment:
+      - LOG_LEVEL=debug
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    depends_on:
+      - jaeger
+    ports:
+      - "50051:50051"
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    depends_on:
+      - jaeger
+      - user-service
+    ports:
+      - "50052:50052"
+
+volumes:
+  es_data:
