@@ -3,6 +3,7 @@ package grpcservices
 import (
 	"context"
 	"fmt"
+	"user-service/internal/domain"
 	"user-service/pb"
 
 	"go.opentelemetry.io/otel"
@@ -10,6 +11,11 @@ import (
 
 type UserService struct {
 	pb.UnimplementedUserServiceServer
+	userUsecase domain.UserUsecase
+}
+
+func NewUserService(userUsecase domain.UserUsecase) *UserService {
+	return &UserService{userUsecase: userUsecase}
 }
 
 func (s *UserService) CreateUser(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
@@ -25,14 +31,7 @@ func (s *UserService) CreateUser(ctx context.Context, req *pb.RegisterRequest) (
 func (s *UserService) GetUserByEmail(ctx context.Context, req *pb.GetUserByEmailRequest) (*pb.ApiResponse, error) {
 	fmt.Println("GetUserByEmail request received", req)
 
-	tracer := otel.Tracer("User Service")
-	_, span := tracer.Start(ctx, "GetUserByEmail Controller")
-	defer span.End()
+	s.userUsecase.CreateUser(ctx)
 
 	return &pb.ApiResponse{Success: true, Message: "User fetched successfully"}, nil
-}
-
-func (s *UserService) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
-	fmt.Println("GetUser request received", req)
-	return &pb.GetUserResponse{Success: true, Message: "User fetched successfully"}, nil
 }

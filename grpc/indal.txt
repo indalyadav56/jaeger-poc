@@ -1,0 +1,11 @@
+🔹 Option 3: Auto-Instrument Downstream Libraries
+
+If you’re also calling DBs, HTTP, Kafka, etc. — OpenTelemetry already has instrumentation wrappers. For example:
+
+go.opentelemetry.io/contrib/instrumentation/database/sql/otelsql for SQL
+
+go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp for HTTP
+
+go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama for Kafka
+
+These automatically create spans for you — no manual StartSpan needed.
