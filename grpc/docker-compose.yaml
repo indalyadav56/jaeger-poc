@@ -20,8 +20,35 @@ services:
     volumes:
       - es_data:/usr/share/elasticsearch/data
 
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=indal_db
+      - DB_PORT=5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: indal
+      MONGO_INITDB_ROOT_PASSWORD: indal
+
   user-service:
-    build: ./user-service
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
     container_name: user-service
     depends_on:
       - jaeger
@@ -29,19 +56,33 @@ services:
     ports:
       - "50051:50051"
     environment:
-      - SERVICE_NAME=user-service
-      - SERVICE_PORT=50051
+      - DATABASE_POSTGRES_NAME=users
+      - DATABASE_POSTGRES_HOST=postgres
+      - DATABASE_POSTGRES_PORT=5432
+      - DATABASE_POSTGRES_USERNAME=postgres
+      - DATABASE_POSTGRES_PASSWORD=postgres
+      - APP_TRACE_ENDPOINT=jaeger:4318
+      - CLIENTS_PRODUCT_SERVICE_TARGET=product-service
+      - CLIENTS_PRODUCT_SERVICE_PORT=50053
 
   product-service:
-    build: ./product-service
+    build:
+      context: .
+      dockerfile: product-service/Dockerfile
     container_name: product-service
     depends_on:
       - jaeger
     ports:
       - "50053:50053"
+    environment:
+      - DATABASE_MONGODB_URI=mongodb://indal:indal@mongodb:27017
+      - DATABASE_MONGODB_DATABASE=products
+      - APP_TRACE_ENDPOINT=jaeger:4318
 
   auth-service:
-    build: ./auth-service
+    build:
+      context: .
+      dockerfile: auth-service/Dockerfile
     container_name: auth-service
     depends_on:
       - jaeger
@@ -51,3 +92,5 @@ services:
 
 volumes:
   es_data:
+  postgres_data:
+  mongodb_data:

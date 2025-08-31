@@ -2,3 +2,45 @@
 {"time":"2025-08-30T16:10:05.618806+05:30","level":"INFO","msg":"User service starting on port :50051"}
 {"time":"2025-08-30T16:11:25.518632+05:30","level":"INFO","msg":"User service starting on port :50051"}
 {"time":"2025-08-30T16:11:56.485771+05:30","level":"INFO","msg":"User service starting on port :50051"}
+{"time":"2025-08-31T11:36:45.188303+05:30","level":"INFO","msg":"Failed to initialize database: dial tcp: lookup port=0: no such host"}
+{"time":"2025-08-31T11:37:22.252344+05:30","level":"INFO","msg":"Failed to initialize database: dial tcp: lookup port=0: no such host"}
+{"time":"2025-08-31T11:37:45.067446+05:30","level":"INFO","msg":"Failed to initialize database: dial tcp: lookup port=0: no such host"}
+{"time":"2025-08-31T11:39:21.676714+05:30","level":"INFO","msg":"Failed to initialize database: pq: SSL is not enabled on the server"}
+{"time":"2025-08-31T11:39:42.151646+05:30","level":"INFO","msg":"Failed to initialize database: pq: database \"users\" does not exist"}
+{"time":"2025-08-31T11:41:02.334095+05:30","level":"INFO","msg":"Failed to initialize database: pq: database \"users\" does not exist"}
+{"time":"2025-08-31T11:45:54.205248+05:30","level":"INFO","msg":"Failed to initialize database: pq: database \"users\" does not exist"}
+{"time":"2025-08-31T11:47:25.256319+05:30","level":"INFO","msg":"OK   20250831061332_users.sql (3.25ms)"}
+{"time":"2025-08-31T11:47:25.256563+05:30","level":"INFO","msg":"goose: successfully migrated database to version: 20250831061332"}
+{"time":"2025-08-31T11:48:45.846919+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:49:21.580926+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:51:12.4107+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:52:04.232558+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:52:19.586105+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:52:28.828761+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:53:22.028817+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:53:32.14262+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:53:59.33295+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:54:10.897533+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:54:19.872137+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:54:41.368117+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:55:09.253071+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:56:04.560112+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:56:20.379881+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:56:54.038587+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:56:54.606015+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:57:48.748527+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:57:56.878175+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:58:08.204392+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:58:15.872585+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T11:59:58.302217+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:03:16.341367+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:04:40.653876+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:05:23.616461+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:13:54.683522+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:15:53.806308+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:21:14.642682+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:21:16.557722+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:21:18.050429+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:21:21.305662+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:21:58.987889+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-08-31T12:22:07.855807+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}

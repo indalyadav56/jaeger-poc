@@ -11,3 +11,7 @@ proto:
 
 run:
 	go run cmd/server.go
+
+migration-create:
+	@read -p "Enter migration name: " name; \
+	goose -dir migrations create $$name sql

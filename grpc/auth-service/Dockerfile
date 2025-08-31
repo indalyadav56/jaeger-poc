@@ -7,14 +7,17 @@ RUN apk add --no-cache git protobuf-dev make
 # Set working directory
 WORKDIR /app
 
-# Copy go mod files
-COPY go.mod go.sum ./
+# Copy go mod files from auth-service
+COPY auth-service/go.mod auth-service/go.sum ./
+
+# Copy common-service to parent directory (matching the replace directive)
+COPY common-service/ ../common-service/
 
 # Download dependencies
 RUN go mod download
 
-# Copy source code
-COPY . .
+# Copy auth-service source code
+COPY auth-service/ .
 
 # Install protobuf plugins
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest

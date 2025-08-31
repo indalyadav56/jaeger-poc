@@ -9,3 +9,6 @@ go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp for HTTP
 go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama for Kafka
 
 These automatically create spans for you — no manual StartSpan needed.
+
+
+add middleware logger

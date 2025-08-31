@@ -7,14 +7,17 @@ RUN apk add --no-cache git protobuf-dev make
 # Set working directory
 WORKDIR /app
 
-# Copy go mod files
-COPY go.mod go.sum ./
+# Copy go mod files from product-service
+COPY product-service/go.mod product-service/go.sum ./
+
+# Copy common-service to parent directory (matching the replace directive)
+COPY common-service/ ../common-service/
 
 # Download dependencies
 RUN go mod download
 
-# Copy source code
-COPY . .
+# Copy product-service source code
+COPY product-service/ .
 
 # Install protobuf plugins
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
@@ -42,7 +45,7 @@ WORKDIR /app
 
 # Copy binary from builder stage
 COPY --from=builder /app/bin/server .
-COPY configs /app/configs
+COPY --from=builder /app/configs /app/configs
 
 # Change ownership to non-root user
 RUN chown -R appuser:appgroup /app

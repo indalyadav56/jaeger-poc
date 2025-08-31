@@ -30,13 +30,13 @@ func NewApp(ctx context.Context) *App {
 	logger.InitLogger("debug")
 
 	// tracing
-	tp, err := trace.InitTracer(ctx, "localhost:4318", "AUTH_SERVICE")
+	tp, err := trace.InitTracer(ctx, "jaeger:4318", "AUTH_SERVICE")
 	if err != nil {
 		log.Fatalf("Failed to initialize tracer: %v", err)
 	}
 
 	// grpc client
-	grpcClient, err := grpc.NewClient("localhost:50051",
+	grpcClient, err := grpc.NewClient("user-service:50051",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithStatsHandler(otelgrpc.NewClientHandler()),
 	)

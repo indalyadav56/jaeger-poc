@@ -1,6 +1,8 @@
 app:
   name: user-service
   log_level: debug
+  trace:
+    endpoint: "localhost:4318"
 
 http:
   host: "0.0.0.0"
@@ -17,11 +19,11 @@ cors:
 database:
   postgres:
     name: "users"
-    host: "postgres"
+    host: "localhost"
     port: 5432
     username: "postgres"
     password: "postgres"
-    ssl_mode: "require"
+    ssl_mode: false
     max_open_conns: 25
     max_idle_conns: 25
     conn_max_lifetime: "30m"
@@ -35,19 +37,16 @@ database:
     max_pool_size: 50
 
 clients:
-  user_service:
+  product_service:
     target: "localhost"
+    port: 50053
     tls:
       enabled: false
     timeouts:
-      dial: 5s       # connection establishment
-      rpc: 2s        # per-RPC deadline default
+      dial: 5s
+      rpc: 2s
     retry:
       max_attempts: 3
       backoff_initial: 200ms
       backoff_max: 2s
       retryable_status_codes: [UNAVAILABLE, RESOURCE_EXHAUSTED]
-    keepalive:
-      time: 30s
-      timeout: 5s
-      permit_without_stream: true

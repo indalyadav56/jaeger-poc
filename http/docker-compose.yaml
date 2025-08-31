@@ -1,31 +1,33 @@
 services:
   jaeger:
     image: jaegertracing/all-in-one:latest
-    container_name: jaeger
+    container_name: tracer-jaeger
     ports:
       - "16686:16686" # Jaeger UI
       - "4318:4318" # OTLP HTTP ingest (v1/traces)
     environment:
       - LOG_LEVEL=debug
 
+  svc-a:
+    build: ./svc-a
+    container_name: svc-a
+    depends_on:
+      - jaeger
+    ports:
+      - "8080:8080"
+
   svc-b:
     build: ./svc-b
     container_name: svc-b
-    environment:
-      - OTEL_SERVICE_NAME=svc-b
     depends_on:
       - jaeger
     ports:
       - "8081:8081"
 
-  svc-a:
-    build: ./svc-a
-    container_name: svc-a
-    environment:
-      - OTEL_SERVICE_NAME=svc-a
-      - DOWNSTREAM_URL=http://svc-b:8081/work
+  svc-c:
+    build: ./svc-c
+    container_name: svc-c
     depends_on:
       - jaeger
-      - svc-b
     ports:
-      - "8080:8080"
+      - "8082:8082"

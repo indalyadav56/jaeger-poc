@@ -1,6 +1,8 @@
 app:
   name: auth-service
   log_level: debug
+  trace:
+    endpoint: "localhost:4318"
 
 http:
   host: "0.0.0.0"
@@ -15,39 +17,8 @@ cors:
     - "http://localhost:3000"
 
 database:
-  postgres:
-    name: "users"
-    host: "postgres"
-    port: 5432
-    username: "postgres"
-    password: "postgres"
-    ssl_mode: "require"
-    max_open_conns: 25
-    max_idle_conns: 25
-    conn_max_lifetime: "30m"
   mongodb:
-    uri: "mongodb://localhost:27017"
-    database: "users"
-    username: "mongo_admin"
-    password: "mongo_pass"
-    auth_source: "admin"
+    uri: "mongodb://indal:indal@localhost:27017"
+    database: "products"
     timeout: "10s"
     max_pool_size: 50
-
-clients:
-  user_service:
-    target: "localhost"
-    tls:
-      enabled: false
-    timeouts:
-      dial: 5s       # connection establishment
-      rpc: 2s        # per-RPC deadline default
-    retry:
-      max_attempts: 3
-      backoff_initial: 200ms
-      backoff_max: 2s
-      retryable_status_codes: [UNAVAILABLE, RESOURCE_EXHAUSTED]
-    keepalive:
-      time: 30s
-      timeout: 5s
-      permit_without_stream: true

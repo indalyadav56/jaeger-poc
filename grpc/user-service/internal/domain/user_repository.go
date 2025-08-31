@@ -3,5 +3,5 @@ package domain
 import "context"
 
 type UserRepository interface {
-	CreateUser(ctx context.Context) (string, error)
+	CreateUser(ctx context.Context) error
 }
