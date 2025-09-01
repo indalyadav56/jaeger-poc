@@ -25,13 +25,12 @@ func main() {
 
 	// Serve Swagger UI
 	r.Get("/swagger/*", httpSwagger.Handler(
-		httpSwagger.URL("/swagger.json"), // Point to the local swagger.json
+		httpSwagger.URL("./swagger.json"),
 	))
 
 	// scalar ui
-	r.Get("/reference", func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		htmlContent, err := scalar.ApiReferenceHTML(&scalar.Options{
-			// SpecURL: "https://generator3.swagger.io/openapi.json",// allow external URL or local path file
 			SpecURL: "./swagger.json",
 			CustomOptions: scalar.CustomOptions{
 				PageTitle: "Simple API",
@@ -42,10 +41,10 @@ func main() {
 		if err != nil {
 			fmt.Printf("%v", err)
 		}
-
 		fmt.Fprintln(w, htmlContent)
 	})
 
 	// Start server
+	fmt.Println("Server started at http://localhost:8085")
 	http.ListenAndServe(":8085", r)
 }
