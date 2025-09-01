@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"os/signal"
+	"syscall"
 	"user-service/internal/app"
 )
 
 func main() {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer stop()
 
 	app, err := app.NewApp(ctx)
 	if err != nil {

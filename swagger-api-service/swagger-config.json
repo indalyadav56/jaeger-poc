@@ -1,0 +1,18 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "My Combined API",
+    "version": "1.0.0"
+  },
+  "apis": [
+    {
+      "url": "https://petstore.swagger.io/v2/swagger.json"
+    },
+    {
+      "url": "http://localhost:8080/swagger.json"
+    },
+    {
+      "url": "http://localhost:8080/swagger.json"
+    }
+  ]
+}
