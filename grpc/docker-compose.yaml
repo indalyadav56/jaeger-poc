@@ -89,6 +89,19 @@ services:
       - user-service
     ports:
       - "50052:50052"
+      - "8081:8081"
+
+  swagger-api-service:
+    build:
+      context: ./swagger-api-service
+      dockerfile: Dockerfile
+    container_name: swagger-api-service
+    depends_on:
+      - auth-service
+      - user-service
+      - product-service
+    ports:
+      - "8085:8085"
 
 volumes:
   es_data:

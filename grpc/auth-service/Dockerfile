@@ -45,6 +45,8 @@ WORKDIR /app
 
 # Copy binary from builder stage
 COPY --from=builder /app/bin/server .
+COPY --from=builder /app/configs /app/configs
+COPY --from=builder /app/third_party /app/third_party
 
 # Change ownership to non-root user
 RUN chown -R appuser:appgroup /app

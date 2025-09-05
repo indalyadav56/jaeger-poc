@@ -3,3 +3,5 @@ sw-combine:
 
 run:
 	go run main.go
+
+	

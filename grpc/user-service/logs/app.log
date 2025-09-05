@@ -44,3 +44,6 @@
 {"time":"2025-08-31T12:21:21.305662+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
 {"time":"2025-08-31T12:21:58.987889+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
 {"time":"2025-08-31T12:22:07.855807+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-09-02T13:23:50.479519+05:30","level":"INFO","msg":"Failed to initialize database: dial tcp [::1]:5432: connect: connection refused"}
+{"time":"2025-09-02T13:24:07.483882+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}
+{"time":"2025-09-02T13:24:44.513217+05:30","level":"INFO","msg":"goose: no migrations to run. current version: 20250831061332"}

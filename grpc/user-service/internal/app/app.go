@@ -117,7 +117,7 @@ func (a *App) Run() error {
 
 	// swagger endpoint
 	a.httpServer.HandleFunc("/swagger.json", func(w http.ResponseWriter, r *http.Request) {
-		file, err := os.OpenFile("api/swagger/swagger.json", os.O_RDONLY, 0644)
+		file, err := os.OpenFile("api/swagger/swagger3.json", os.O_RDONLY, 0644)
 		if err != nil {
 			http.Error(w, "Swagger file not found", http.StatusNotFound)
 			return

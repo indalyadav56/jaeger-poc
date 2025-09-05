@@ -2,3 +2,5 @@
 {"time":"2025-08-30T16:10:30.670942+05:30","level":"INFO","msg":"Service B gRPC server starting on port :50052"}
 {"time":"2025-08-30T16:16:16.353935+05:30","level":"INFO","msg":"Service B gRPC server starting on port :50052"}
 {"time":"2025-09-01T11:03:38.655556+05:30","level":"INFO","msg":"Failed to listen: listen tcp :50052: bind: address already in use"}
+{"time":"2025-09-02T11:40:32.586396+05:30","level":"INFO","msg":"traces export: Post \"http://jaeger:4318/v1/traces\": dial tcp: lookup jaeger: no such host"}
+{"time":"2025-09-02T12:22:50.164824+05:30","level":"INFO","msg":"traces export: Post \"http://jaeger:4318/v1/traces\": dial tcp: lookup jaeger: no such host"}

@@ -1,0 +1,748 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "MeetSpace API documentation.",
+        "title": "MeetSpace API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/v1/chat/group/members": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "Chat-Group"
+                ],
+                "summary": "add-chat-group-members",
+                "responses": {}
+            }
+        },
+        "/v1/chat/group/members/{room_id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "Chat-Group"
+                ],
+                "summary": "get-chat-group-members",
+                "parameters": [
+                    {
+                        "description": "Chat Room ID",
+                        "name": "room_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/v1/chat/groups": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Add Chat group",
+                "tags": [
+                    "Chat-Group"
+                ],
+                "summary": "add-chat-group",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/types.AddChatGroup"
+                            }
+                        }
+                    },
+                    "description": "Add chat group details",
+                    "required": true
+                },
+                "responses": {}
+            },
+            "patch": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Update Chat group",
+                "tags": [
+                    "Chat-Group"
+                ],
+                "summary": "update-chat-group",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/types.UpdateChatGroup"
+                            }
+                        }
+                    },
+                    "description": "update chat group details",
+                    "required": true
+                },
+                "responses": {}
+            }
+        },
+        "/v1/chat/messages": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Get chat message",
+                "tags": [
+                    "Chat-Message"
+                ],
+                "summary": "get chat messages",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "get messages successfully"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "add chat message",
+                "tags": [
+                    "Chat-Message"
+                ],
+                "summary": "add chat message",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/types.CreateChatRequestBody"
+                            }
+                        }
+                    },
+                    "description": "add chat message details",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "add chat message successfully"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/v1/chat/messages/{chat_room_id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Get chat messages by room id",
+                "tags": [
+                    "Chat-Message"
+                ],
+                "summary": "get chat messages by room id",
+                "parameters": [
+                    {
+                        "description": "Chat Room ID",
+                        "name": "chat_room_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "get messages successfully"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/v1/chat/room/contact": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "UserLogin User account",
+                "tags": [
+                    "Chat-Room"
+                ],
+                "summary": "UserLogin User account",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/types.LoginRequest"
+                },
+                "responses": {}
+            }
+        },
+        "/v1/chat/rooms": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "GetChatRooms",
+                "tags": [
+                    "Chat-Room"
+                ],
+                "summary": "GetChatRooms",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Chat Room ID",
+                        "name": "room_id",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {}
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "CreateChatRoom",
+                "tags": [
+                    "Chat-Room"
+                ],
+                "summary": "CreateChatRoom",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/types.LoginRequest"
+                },
+                "responses": {}
+            }
+        },
+        "/v1/chat/rooms/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "DeleteChatRoom",
+                "tags": [
+                    "Chat-Room"
+                ],
+                "summary": "DeleteChatRoom",
+                "parameters": [
+                    {
+                        "description": "Room ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/types.LoginRequest"
+                },
+                "responses": {}
+            }
+        },
+        "/v1/user/check-email": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User create",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/types.CreateUserData"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/v1/user/profile": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "get user profile",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/v1/user/search": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "search user",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/v1/users": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "get all users",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "user-update",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/types.CreateUserData"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "User create",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/types.CreateUserData"
+                },
+                "responses": {}
+            }
+        },
+        "/v1/users/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "get user by ID",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    },
+    "servers": [
+        {
+            "url": "//localhost:8080"
+        }
+    ],
+    "components": {
+        "requestBodies": {
+            "types.CreateUserData": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/types.CreateUserData"
+                        }
+                    }
+                },
+                "description": "User create details",
+                "required": true
+            },
+            "types.LoginRequest": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/types.LoginRequest"
+                        }
+                    }
+                },
+                "description": "User login details",
+                "required": true
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "description": "Type \"Bearer\" followed by a space and JWT token.",
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        },
+        "schemas": {
+            "types.AddChatGroup": {
+                "type": "object",
+                "required": [
+                    "title",
+                    "user_ids"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "types.CreateChatRequestBody": {
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string"
+                    },
+                    "receiver_user_id": {
+                        "type": "string"
+                    },
+                    "room_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "types.CreateUserData": {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "type": "string"
+                    }
+                }
+            },
+            "types.ForgotPasswordRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "new_password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "new_password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "types.LoginRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6
+                    }
+                }
+            },
+            "types.LogoutRequest": {
+                "type": "object",
+                "required": [
+                    "refresh_token"
+                ],
+                "properties": {
+                    "refresh_token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "types.RefreshTokenRequest": {
+                "type": "object",
+                "required": [
+                    "refresh_token"
+                ],
+                "properties": {
+                    "refresh_token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "types.RegisterRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6
+                    }
+                }
+            },
+            "types.SendEmailRequest": {
+                "type": "object",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "types.UpdateChatGroup": {
+                "type": "object",
+                "required": [
+                    "room_id"
+                ],
+                "properties": {
+                    "room_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "types.VerifyEmailRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "otp"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "otp": {
+                        "type": "string"
+                    }
+                }
+            },
+            "utils.Metadata": {
+                "type": "object",
+                "properties": {
+                    "api_version": {
+                        "type": "string",
+                        "default": "v1"
+                    },
+                    "server_info": {
+                        "$ref": "#/components/schemas/utils.ServerInfo"
+                    }
+                }
+            },
+            "utils.Response": {
+                "type": "object",
+                "properties": {
+                    "data": {},
+                    "error": {},
+                    "message": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/utils.Metadata"
+                    },
+                    "request_id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "status_code": {
+                        "type": "integer"
+                    },
+                    "time_stamp": {
+                        "type": "string"
+                    }
+                }
+            },
+            "utils.ServerInfo": {
+                "type": "object",
+                "properties": {
+                    "hostname": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

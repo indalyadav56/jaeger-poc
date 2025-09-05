@@ -9,7 +9,10 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	app := app.NewApp(ctx)
+	app, err := app.NewApp(ctx)
+	if err != nil {
+		panic(err)
+	}
 
 	if err := app.Run(); err != nil {
 		panic(err)
