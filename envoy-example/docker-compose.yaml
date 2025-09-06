@@ -1,0 +1,35 @@
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.29-latest
+    ports:
+      - "80:80"      # Frontend port
+      - "9901:9901"  # Admin interface
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    networks:
+      - app-network
+    depends_on:
+      - web1
+      - web2
+
+  web1:
+    image: nginx:alpine
+    volumes:
+      - ./html1:/usr/share/nginx/html
+    networks:
+      - app-network
+    environment:
+      - SERVER_NAME=web1
+
+  web2:
+    image: nginx:alpine
+    volumes:
+      - ./html2:/usr/share/nginx/html
+    networks:
+      - app-network
+    environment:
+      - SERVER_NAME=web2
+
+networks:
+  app-network:
+    driver: bridge

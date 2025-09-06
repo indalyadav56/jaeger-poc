@@ -1,4 +1,17 @@
 services:
+  envoy:
+    image: envoyproxy/envoy:v1.29-latest
+    container_name: envoy
+    ports:
+      - "80:80"
+      - "9901:9901"  # Admin interface
+    volumes:
+      - ./api-gateway/envoy.yaml:/etc/envoy/envoy.yaml
+    depends_on:
+      - auth-service
+      - user-service
+      - product-service
+
   jaeger:
     image: jaegertracing/all-in-one:latest
     container_name: jaeger-grpc
