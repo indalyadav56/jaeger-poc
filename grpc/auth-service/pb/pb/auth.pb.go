@@ -7,7 +7,6 @@
 package pb
 
 import (
-	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -227,7 +226,7 @@ var File_api_proto_auth_proto protoreflect.FileDescriptor
 
 const file_api_proto_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x14api/proto/auth.proto\x12\x04auth\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"F\n" +
+	"\x14api/proto/auth.proto\x12\x04auth\x1a\x1cgoogle/api/annotations.proto\"F\n" +
 	"\fLoginRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"%\n" +
@@ -241,8 +240,7 @@ const file_api_proto_auth_proto_rawDesc = "" +
 	"\amessage\x18\x02 \x01(\tR\amessage2\xbb\x01\n" +
 	"\vAuthService\x12K\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12_\n" +
-	"\bRegister\x12\x19.auth.RegisterUserRequest\x1a\x1a.auth.RegisterUserResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/auth/registerB\x9d\x01\x92A\x93\x01\x12W\n" +
-	"\fAuth Service\x12BAuthentication microservice providing login and user registration.2\x031.0\x1a\x0elocalhost:8081\"\x01/*\x01\x012\x10application/json:\x10application/jsonZ\x04./pbb\x06proto3"
+	"\bRegister\x12\x19.auth.RegisterUserRequest\x1a\x1a.auth.RegisterUserResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/auth/registerB\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_api_proto_auth_proto_rawDescOnce sync.Once

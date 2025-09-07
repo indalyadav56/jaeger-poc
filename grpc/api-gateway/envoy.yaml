@@ -32,12 +32,62 @@ static_resources:
               domains: ["*"]
               routes:
               - match:
-                  prefix: "/auth"
+                  safe_regex:
+                    google_re2: {}
+                    regex: "^/(v[0-9]+(\\.[0-9]+)*\\/)?auth(/.*)?$"
                 route:
                   cluster: auth-service
-
+                  timeout: 15s
+              - match:
+                  safe_regex:
+                    google_re2: {}
+                    regex: "^/(v[0-9]+(\\.[0-9]+)*\\/)?user(/.*)?$"
+                route:
+                  cluster: user-service
+                  timeout: 15s
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: swagger-api-service
+                  timeout: 15s
   clusters:
-  - name: auth-service
+  - name: auth-service  
     connect_timeout: 30s
     type: STRICT_DNS
     dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: auth-service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: auth-service  # Matches Docker Compose service name
+                port_value: 8081  # HTTP server port from logs 
+  - name: user-service  
+    connect_timeout: 30s
+    type: STRICT_DNS
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: auth-service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: user-service  # Matches Docker Compose service name
+                port_value: 8080  # HTTP server port from logs
+
+  - name: swagger-api-service  
+    connect_timeout: 30s
+    type: STRICT_DNS
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: swagger-api-service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: swagger-api-service  # Matches Docker Compose service name
+                port_value: 8085  # HTTP server port from logs

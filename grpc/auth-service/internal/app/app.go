@@ -125,8 +125,8 @@ func (a *App) Run() error {
 
 	// 	http.ServeContent(w, r, "swagger.json", stat.ModTime(), file)
 	// })
-	a.httpServer.HandleFunc("/swagger.json", func(w http.ResponseWriter, r *http.Request) {
-		data, err := os.ReadFile("api/swagger/auth.openapi3.json")
+	a.httpServer.HandleFunc("/auth/swagger.json", func(w http.ResponseWriter, r *http.Request) {
+		data, err := os.ReadFile("api/swagger/auth.swagger.json")
 		if err != nil {
 			http.Error(w, "Swagger file not found", http.StatusNotFound)
 			return

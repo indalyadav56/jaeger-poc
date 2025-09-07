@@ -1,19 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Auth Service",
-    "description": "Authentication microservice providing login and user registration.",
-    "version": "1.0"
+    "title": "api/proto/auth.proto",
+    "version": "version not set"
   },
   "tags": [
     {
       "name": "AuthService"
     }
-  ],
-  "host": "localhost:8081",
-  "basePath": "/",
-  "schemes": [
-    "http"
   ],
   "consumes": [
     "application/json"

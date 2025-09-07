@@ -11,7 +11,7 @@ services:
       - auth-service
       - user-service
       - product-service
-
+      
   jaeger:
     image: jaegertracing/all-in-one:latest
     container_name: jaeger-grpc
@@ -67,6 +67,7 @@ services:
       - jaeger
       - product-service
     ports:
+      - "8080:8080"
       - "50051:50051"
     environment:
       - DATABASE_POSTGRES_NAME=users
@@ -109,13 +110,9 @@ services:
       context: ./swagger-api-service
       dockerfile: Dockerfile
     container_name: swagger-api-service
-    depends_on:
-      - auth-service
-      - user-service
-      - product-service
     ports:
       - "8085:8085"
-
+  
 volumes:
   es_data:
   postgres_data:

@@ -49,6 +49,8 @@ COPY --from=builder /app/bin/server .
 COPY --from=builder /go/bin/grpc-health-probe /bin/grpc-health-probe
 COPY --from=builder /app/configs /app/configs
 COPY --from=builder /app/migrations /app/migrations
+COPY --from=builder /app/api /app/api
+
 RUN chmod +x /bin/grpc-health-probe
 
 # Change ownership to non-root user

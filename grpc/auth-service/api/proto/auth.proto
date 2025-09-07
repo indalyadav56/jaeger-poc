@@ -5,21 +5,6 @@ package auth;
 option go_package = "./pb";
 
 import "google/api/annotations.proto";
-import "protoc-gen-openapiv2/options/annotations.proto";
-
-// 👇 Global swagger metadata
-option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
-  info: {
-    title: "Auth Service";
-    version: "1.0";
-    description: "Authentication microservice providing login and user registration.";
-  };
-  host: "localhost:8081";   // 👈 This fixes your Swagger UI issue
-  base_path: "/";
-  schemes: HTTP;               // or HTTPS if you deploy behind TLS
-  consumes: "application/json";
-  produces: "application/json";
-};
 
 message LoginRequest {
   string username = 1;

@@ -23,6 +23,7 @@ COPY auth-service/ .
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
+RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 
 # Generate protobuf code
 RUN make proto
@@ -47,6 +48,7 @@ WORKDIR /app
 COPY --from=builder /app/bin/server .
 COPY --from=builder /app/configs /app/configs
 COPY --from=builder /app/third_party /app/third_party
+COPY --from=builder /app/api /app/api
 
 # Change ownership to non-root user
 RUN chown -R appuser:appgroup /app

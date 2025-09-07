@@ -4,15 +4,15 @@
     "title": "My Combined API",
     "version": "1.0.0"
   },
-  "host": "my-gateway.example.com",
+  "host": "localhost",
   "basePath": "/",
   "schemes": ["http"],
   "apis": [
     {
-      "url": "http://localhost:8080/swagger.json"
+      "url": "http://localhost/user/swagger.json"
     },
     {
-      "url": "http://localhost:8081/swagger.json"
+      "url": "http://localhost/auth/swagger.json"
     }
   ]
 }

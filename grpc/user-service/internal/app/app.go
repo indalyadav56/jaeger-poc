@@ -116,8 +116,8 @@ func (a *App) Run() error {
 	go func() { log.Fatal(a.grpcServer.Serve(lis)) }()
 
 	// swagger endpoint
-	a.httpServer.HandleFunc("/swagger.json", func(w http.ResponseWriter, r *http.Request) {
-		file, err := os.OpenFile("api/swagger/swagger3.json", os.O_RDONLY, 0644)
+	a.httpServer.HandleFunc("/user/swagger.json", func(w http.ResponseWriter, r *http.Request) {
+		file, err := os.OpenFile("api/swagger/swagger.json", os.O_RDONLY, 0644)
 		if err != nil {
 			http.Error(w, "Swagger file not found", http.StatusNotFound)
 			return
