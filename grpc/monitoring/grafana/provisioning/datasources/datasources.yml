@@ -1,0 +1,97 @@
+apiVersion: 1
+
+datasources:
+  # Jaeger for Distributed Tracing
+  - name: Jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    uid: jaeger_uid
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: true
+    jsonData:
+      httpMethod: GET
+      tracesToLogsV2:
+        # Optional: Configure trace to logs correlation
+        datasourceUid: 'elasticsearch_uid'
+        filterByTraceID: true
+        filterBySpanID: false
+        tags:
+          - service
+          - pod
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+
+  # PostgreSQL for Application Database Metrics
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: postgres:5432
+    uid: postgres_uid
+    database: users
+    user: postgres
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: true
+    secureJsonData:
+      password: postgres
+    jsonData:
+      sslmode: disable
+      maxOpenConns: 100
+      maxIdleConns: 100
+      maxIdleConnsAuto: true
+      connMaxLifetime: 14400
+      postgresVersion: 1300
+      timescaledb: false
+
+  # Elasticsearch for Logs and Search Analytics
+  - name: Elasticsearch
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200
+    uid: elasticsearch_uid
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: true
+    jsonData:
+      interval: Daily
+      timeField: "@timestamp"
+      esVersion: "8.0.0"
+      includeFrozen: false
+      logMessageField: message
+      logLevelField: level
+      maxConcurrentShardRequests: 5
+      xpack: 
+  
+  # Loki for Log Aggregation
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    uid: loki_uid
+    basicAuth: false
+    isDefault: true
+    version: 1
+    editable: true
+    jsonData:
+      maxLines: 1000
+      derivedFields:
+        - datasourceUid: jaeger_uid
+          matcherRegex: "trace_id=(\\w+)"
+          name: "TraceID"
+          url: "${__value.raw}"
+          urlDisplayLabel: "View Trace"
+  
+  # prometheus
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    jsonData:
+      httpMethod: GET

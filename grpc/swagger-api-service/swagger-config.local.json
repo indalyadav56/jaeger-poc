@@ -9,10 +9,10 @@
   "schemes": ["http"],
   "apis": [
     {
-      "url": "http://user-service:8080/user/swagger.json"
+      "url": "http://localhost/user/swagger.json"
     },
     {
-      "url": "http://auth-service:8081/auth/swagger.json"
+      "url": "http://localhost/auth/swagger.json"
     }
   ]
 }

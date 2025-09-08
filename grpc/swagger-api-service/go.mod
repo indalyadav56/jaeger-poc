@@ -5,6 +5,7 @@ go 1.24.5
 require (
 	github.com/MarceloPetrucio/go-scalar-api-reference v0.0.0-20240521013641-ce5d2efe0e06
 	github.com/go-chi/chi/v5 v5.2.3
+	github.com/go-chi/cors v1.2.2
 	github.com/swaggo/http-swagger v1.3.4
 )
 
