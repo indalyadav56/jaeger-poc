@@ -19,12 +19,14 @@ This project implements a microservices architecture with the following key comp
 - **Product Service** (`:50053`) - Product catalog with MongoDB  
 - **Auth Service** (`:50052, :8081`) - Authentication and authorization
 - **Swagger API Service** (`:8085`) - Centralized API documentation
+- **Common Service** - Centralized API documentation
+- **Monitoring Service** - Centralized API documentation
 
 ### Infrastructure Services
 - **Jaeger** (`:16686`) - Distributed tracing and observability
 - **PostgreSQL** (`:5432`) - Relational database for users
 - **MongoDB** (`:27017`) - Document database for products
-- **Elasticsearch** (`:9200`) - Store tracing data (optional)
+- **Elasticsearch** (`:9200`) - Store tracing data
 
 ## 🎯 Key Features
 
@@ -32,29 +34,25 @@ This project implements a microservices architecture with the following key comp
 - **OpenTelemetry Integration**: Standardized tracing with OTLP exporter
 - **Jaeger Visualization**: Complete request flow visualization
 - **Span Correlation**: Automatic trace context propagation between services
-- **Performance Monitoring**: Latency and dependency analysis
 
 ### Centralized API Documentation
-- **Swagger UI**: Interactive API documentation at `/swagger/*`
+- **Swagger UI**: Interactive API documentation at `/swagger/index.html`
 - **Scalar API Reference**: Modern, responsive API reference at `/`
 - **Unified Documentation**: Single source of truth for all service APIs
-- **Real-time Updates**: Automatic synchronization with service changes
 
 ### gRPC Communication
 - **Protocol Buffers**: Efficient serialization and type safety
-- **Bidirectional Streaming**: Support for complex communication patterns
-- **Service Discovery**: Built-in service resolution and load balancing
 - **Health Checks**: gRPC health check protocol implementation
 
 ## 🛠️ Technology Stack
 
 - **Language**: Go 1.24+
-- **Communication**: gRPC with Protocol Buffers
+- **Communication**: gRPC with Protocol Buffers and REST APIs
 - **Tracing**: Jaeger
 - **Databases**: PostgreSQL, MongoDB
 - **Containerization**: Docker + Docker Compose
 - **API Documentation**: Swagger/OpenAPI + Scalar
-- **Monitoring**: Jaeger UI, Health checks
+- **Monitoring**: Grafana, Jaeger UI
 
 ## 📋 Prerequisites
 
@@ -108,17 +106,54 @@ make build
 ### Service Development
 Each service follows a clean architecture pattern:
 ```
-service/
-├── api/           # Protocol Buffers and Swagger definitions
-├── cmd/           # Application entry points
-├── internal/      # Private application code
-│   ├── app/       # Application configuration
-│   ├── delivery/  # Transport layer (gRPC/HTTP)
-│   ├── domain/    # Business logic and entities
-│   ├── repository/# Data access layer
-│   └── usecase/   # Application use cases
-├── configs/       # Configuration files
-└── pkg/           # Public packages
+├── api
+│   ├── proto
+│   │   ├── auth.proto
+│   │   └── user.proto
+│   └── swagger
+│       └── auth.swagger.json
+├── api.rest
+├── cmd
+│   └── server.go
+├── configs
+│   ├── dev.yaml
+│   └── prod.yaml
+├── Dockerfile
+├── go.mod
+├── go.sum
+├── internal
+│   ├── app
+│   │   └── app.go
+│   ├── delivery
+│   │   └── grpc
+│   │       └── grpc_auth_service.go
+│   ├── domain
+│   │   └── auth_usecase.go
+│   └── usecase
+│       └── auth_usecase.go
+├── logs
+│   └── app.log
+├── Makefile
+├── pb
+│   ├── auth_grpc.pb.go
+│   ├── auth.pb.go
+│   ├── auth.pb.gw.go
+│   ├── pb
+│   │   ├── auth_grpc.pb.go
+│   │   ├── auth.pb.go
+│   │   ├── auth.pb.gw.go
+│   │   ├── user_grpc.pb.go
+│   │   └── user.pb.go
+│   ├── user_grpc.pb.go
+│   └── user.pb.go
+├── pkg
+│   └── utils
+│       └── utils.go
+└── third_party
+    └── google
+        └── api
+            ├── annotations.proto
+            └── http.proto
 ```
 
 ### Adding New Services
@@ -129,23 +164,6 @@ service/
 5. Update docker-compose.yaml
 6. Add to centralized Swagger documentation
 
-## 📊 Observability
-
-### Distributed Tracing
-The system implements comprehensive distributed tracing:
-
-```go
-// Initialize tracer in each service
-tracer, err := trace.InitTracer(ctx, "jaeger:4318", "service-name")
-if err != nil {
-    log.Fatal(err)
-}
-defer tracer.Shutdown(ctx)
-
-// Create spans for operations
-ctx, span := otel.Tracer("").Start(ctx, "operation-name")
-defer span.End()
-```
 
 ### Trace Propagation
 - **Automatic Context Propagation**: Trace context flows through gRPC calls
@@ -174,52 +192,18 @@ The Swagger API service provides unified documentation:
 - **Real-time Updates**: Automatic synchronization with service changes
 - **Multi-format Support**: JSON, YAML, and interactive formats
 
-## 🗄️ Database Design
-
-### PostgreSQL (User Service)
-- **Users Table**: User authentication and profile data
-- **Migrations**: Version-controlled schema changes
-- **ACID Compliance**: Transactional data integrity
-
-### MongoDB (Product Service)
-- **Products Collection**: Flexible product catalog structure
-- **Indexing**: Optimized query performance
-- **Scalability**: Horizontal scaling capabilities
-
-## 🔒 Security
-
-### Authentication
-- **JWT Tokens**: Secure token-based authentication
-- **Service-to-Service**: Mutual TLS for inter-service communication
-- **Environment Variables**: Secure configuration management
-
-### Data Protection
-- **Input Validation**: Protocol Buffer schema validation
-- **SQL Injection Prevention**: Parameterized queries
-- **NoSQL Injection Prevention**: Document validation
-
 ## 🚀 Deployment
 
 ### Production Considerations
 - **Environment Configuration**: Separate configs for dev/staging/prod
-- **Resource Limits**: Docker resource constraints
 - **Health Checks**: Comprehensive health monitoring
 - **Logging**: Centralized log aggregation
 - **Monitoring**: Prometheus metrics and Grafana dashboards
-
-### Scaling
-- **Horizontal Scaling**: Service replication
-- **Load Balancing**: gRPC load balancer integration
-- **Database Scaling**: Read replicas and sharding
-- **Cache Layer**: Redis for performance optimization
 
 ## 🧪 Testing
 
 ### Test Strategy
 - **Unit Tests**: Individual component testing
-- **Integration Tests**: Service interaction testing
-- **End-to-End Tests**: Complete workflow validation
-- **Performance Tests**: Load and stress testing
 
 ### Running Tests
 ```bash
